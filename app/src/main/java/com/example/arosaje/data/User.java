@@ -1,13 +1,19 @@
-package com.example.arosaje;
+package com.example.arosaje.data;
 
-public class User {
+import androidx.annotation.NonNull;
+
+import com.example.arosaje.data.GardiennageEtat;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String nomUtilisateur;
     private Integer userId;
     // Aucun = 0, Demande = 1, En cours = 2
-    private Integer statusGardiennage;
+    private GardiennageEtat statusGardiennage;
 
 
-    public User(String nomUtilisateur, Integer userId, Integer statusGardiennage) {
+    public User(String nomUtilisateur, Integer userId, GardiennageEtat statusGardiennage) {
         this.nomUtilisateur = nomUtilisateur;
         this.userId = userId;
         this.statusGardiennage = statusGardiennage;
@@ -30,11 +36,16 @@ public class User {
         this.userId = userId;
     }
 
-    public Integer getstatusGardiennage() {
+    public GardiennageEtat getstatusGardiennage() {
         return statusGardiennage;
     }
 
-    public void setstatusGardiennage(Integer statusGardiennage) {
+    public void setstatusGardiennage(GardiennageEtat statusGardiennage) {
         this.statusGardiennage = statusGardiennage;
+    }
+    @NonNull
+    @Override
+    public String toString(){
+        return this.nomUtilisateur;
     }
 }

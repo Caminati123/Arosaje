@@ -1,11 +1,12 @@
-package com.example.arosaje;
+package com.example.arosaje.data;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Plante {
+public class Plante implements Serializable {
     private String nomPlante;
     private Integer planteId;
     

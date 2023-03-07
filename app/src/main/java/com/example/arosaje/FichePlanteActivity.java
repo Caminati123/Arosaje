@@ -1,7 +1,6 @@
 package com.example.arosaje;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.ImageCapture;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,12 +8,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.arosaje.data.AppData;
+import com.example.arosaje.data.Plante;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -41,7 +41,7 @@ public class FichePlanteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fiche_plante);
 
-        btnretour = (Button) findViewById(R.id.btnRetour);
+        btnretour = (Button) findViewById(R.id.btnAccepter);
         btnSuivi = (Button) findViewById(R.id.btnSuivi);
         edDate = (EditText) findViewById(R.id.edDate);
         edLocalisation = (EditText) findViewById(R.id.edLocalisation);
@@ -159,7 +159,6 @@ public class FichePlanteActivity extends AppCompatActivity {
                     Toast.makeText(FichePlanteActivity.this, "Entrer un nom de plante.", Toast.LENGTH_SHORT).show();
                 }
             }
-
         }
     };
 

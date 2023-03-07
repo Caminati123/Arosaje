@@ -60,13 +60,13 @@
         android:ems="10"
         android:hint="Commentaire"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnRetour"
+        app:layout_constraintBottom_toTopOf="@+id/btnAccepter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnRetour"
+        android:id="@+id/btnAccepter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"

@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.arosaje.data.AppData;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
@@ -52,7 +53,7 @@ public class CameraAtivity extends AppCompatActivity {
 
         btCapture = findViewById(R.id.btCapture);
         btCapture.setOnClickListener(btCaptureListener);
-        btnRetour = findViewById(R.id.btnRetour);
+        btnRetour = findViewById(R.id.btnAccepter);
         btnRetour.setOnClickListener(btnRetourListener);
 
         ivCapture = findViewById(R.id.ivCapture);

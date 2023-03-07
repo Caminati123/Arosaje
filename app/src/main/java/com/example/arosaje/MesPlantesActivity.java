@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.arosaje.data.AppData;
+import com.example.arosaje.data.GardiennageEtat;
+import com.example.arosaje.data.Plante;
+import com.example.arosaje.data.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -42,7 +46,7 @@ public class MesPlantesActivity extends AppCompatActivity {
         for (int i = 0; i < 12; i++){
             String plante = new String("plante "+String.valueOf(i));
             planteListe.add(plante);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, planteListe);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, planteListe);
         }
         AppData appData = AppData.getInstance();
         List<Plante>listePlantes = appData.listPlantes;
@@ -52,19 +56,15 @@ public class MesPlantesActivity extends AppCompatActivity {
 
         // Statut gardiennage
         User user = appData.listUsers.get(appData.courantUserId);
-        switch (user.getstatusGardiennage()) {
-            case 1:
-                tvStatut.setText("Demande en cours");
-                btnStatut.setText("Annuler");
-                break;
-            case 2:
-                tvStatut.setText("En cours");
-                btnStatut.setText("Arreter");
-                break;
-            default:
-                tvStatut.setText("Aucun");
-                btnStatut.setText("Demander");
-                break;
+        if (user.getstatusGardiennage() == GardiennageEtat.DEMANDE) {
+            tvStatut.setText("Demande en cours");
+            btnStatut.setText("Annuler la demande");
+        } else if (user.getstatusGardiennage() == GardiennageEtat.ENCOURS) {
+            tvStatut.setText("En cours");
+            btnStatut.setText("Arreter le gardiennage");
+        }else {
+            tvStatut.setText("Aucun");
+            btnStatut.setText("Demander un gardiennage");
         }
     }
 
@@ -94,24 +94,28 @@ public class MesPlantesActivity extends AppCompatActivity {
         public void onClick(View view) {
             AppData appData = AppData.getInstance();
             User user = appData.listUsers.get(appData.courantUserId);
-            int statut = ((user.getstatusGardiennage()+1)%3);
-            user.setstatusGardiennage(statut);
+            GardiennageEtat statut = user.getstatusGardiennage();
             Log.i("TAG", "onClick: "+statut);
-            switch (statut) {
-                case 1:
-                    tvStatut.setText("Demande en cours");
-                    btnStatut.setText("Annuler");
-                    break;
-                case 2:
-                    tvStatut.setText("En cours");
-                    btnStatut.setText("Arreter");
-                    break;
-                default:
-                    tvStatut.setText("Aucun");
-                    btnStatut.setText("Demander");
-                    break;
-            }
 
+            if (user.getstatusGardiennage() == GardiennageEtat.AUCUN) {
+                user.setstatusGardiennage(GardiennageEtat.DEMANDE);
+                tvStatut.setText("Demande en cours");
+                btnStatut.setText("Annuler le gardiennga");
+            } else if (user.getstatusGardiennage() == GardiennageEtat.DEMANDE) {
+                user.setstatusGardiennage(GardiennageEtat.AUCUN);
+                tvStatut.setText("Aucun");
+                btnStatut.setText("Annuler la demande");
+            }else {
+                // GardiennageEtat.ENCOURS
+                user.setstatusGardiennage(GardiennageEtat.AUCUN);
+                tvStatut.setText("Aucun");
+                btnStatut.setText("Demander un gardiennage");
+                for (int i=0; i < appData.nbGardiennages; i++) {
+                    if (appData.listGardiennage.get(i).getproprietaire().getUserId() == appData.courantUserId){
+                        appData.listGardiennage.remove(i);
+                    }
+                }
+            }
         }
     };
 
@@ -127,5 +131,4 @@ public class MesPlantesActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
-
 }
